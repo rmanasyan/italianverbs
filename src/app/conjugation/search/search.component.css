@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  margin-bottom: 40px;
+}
+
+form {
+  position: relative;
+  margin: 0 auto;
+  max-width: 675px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 7px 50px 7px 58px;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  font-size: 27px;
+  font-weight: 200;
+  line-height: 35px;
+  color: #333;
+}
+
+input[type=text]:focus {
+  box-shadow: 0 0 10px #dcecf5;
+}
+
+button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  text-indent: -10000px;
+}
+
+button[type=submit] {
+  top: 17px;
+  left: 18px;
+  background: url(assets/search-icon.svg) no-repeat;
+  background-size: 20px 20px;
+}
+
+button[type=reset] {
+  top: 17px;
+  right: 18px;
+  background: url(assets/close-button.svg) no-repeat;
+  background-size: 20px 20px;
+}
