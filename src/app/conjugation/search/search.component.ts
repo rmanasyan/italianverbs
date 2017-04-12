@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-conjugation-search',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  model = {};
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+
   }
 
+  search(value: string) {
+    this.router.navigate(['/', value]);
+  }
 }

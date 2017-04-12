@@ -2,8 +2,9 @@
   (ie: <a routerLink="/mangiare">mangiare</a>, <a routerLink="/dormire">dormire</a>, <a routerLink="/amare">amare</a>)
 </p>
 
-<form>
-  <input type="text" name="word" autocomplete="off" placeholder="Search word">
-  <button type="submit">Search</button>
-  <button type="reset">Reset</button>
+<form (ngSubmit)="search(verb.value); searchForm.reset()" #searchForm="ngForm">
+  <input type="text" autocomplete="off" placeholder="Search verb"
+         required name="verb" [(ngModel)]="model.verb" #verb="ngModel">
+  <button type="submit" [disabled]="!searchForm.form.valid">Search</button>
+  <button type="reset" [hidden]="!verb.value">Reset</button>
 </form>
