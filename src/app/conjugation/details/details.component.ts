@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-conjugation-details',
@@ -7,12 +8,14 @@ import {ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  verb: string;
-  constructor(private route: ActivatedRoute) { }
+  verb: FirebaseObjectObservable<any[]>;
+  constructor(private route: ActivatedRoute, private af: AngularFire) { }
 
   ngOnInit() {
     this.route.params
-      .subscribe((params: Params) => this.verb = params['verb']);
+      .subscribe((params: Params) => {
+        this.verb = this.af.database.object('/verbs/' + params['verb']);
+      });
   }
 
 }

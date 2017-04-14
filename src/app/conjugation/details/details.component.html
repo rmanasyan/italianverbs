@@ -1,3 +1,5 @@
 <p>
-  conjugation details <i>{{verb}}</i>
+  conjugation details <i>{{ (verb | async)?.italian  }}</i>
 </p>
+
+{{verb | async | json}}
