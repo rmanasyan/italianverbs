@@ -30,7 +30,8 @@ button {
   position: absolute;
   width: 20px;
   height: 20px;
-  text-indent: -10000px;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0);
 }
 
 button[type=submit] {
