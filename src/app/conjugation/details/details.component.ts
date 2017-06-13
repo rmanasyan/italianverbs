@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-conjugation-details',
@@ -8,14 +11,24 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  verb: FirebaseObjectObservable<any[]>;
-  constructor(private route: ActivatedRoute, private af: AngularFire) { }
+  conjugations: Observable<any[]>;
+  verb: string;
+
+  constructor(private route: ActivatedRoute, private db: AngularFireDatabase) { }
 
   ngOnInit() {
-    this.route.params
-      .subscribe((params: Params) => {
-        this.verb = this.af.database.object('/verbs/' + params['verb']);
-      });
+    this.route.params.switchMap((params: Params) => {
+      this.verb = params['verb'];
+      return this.db.list('/verbs', {
+          query: {
+            orderByChild: 'italian',
+            equalTo: params['verb']
+          }
+        });
+      }).switchMap(verbs => {
+        const key = verbs[0] && verbs[0].$key;
+        return this.db.object('/conjugations/' + key);
+      }).subscribe(conjugations => this.conjugations = conjugations);
   }
 
 }

@@ -1,5 +1,5 @@
 <p>
-  conjugation details <i>{{ (verb | async)?.italian  }}</i>
+  conjugation details <i>{{ verb }}</i>
 </p>
 
-{{verb | async | json}}
+<pre style="text-align: left"> {{conjugations | json}} </pre>
