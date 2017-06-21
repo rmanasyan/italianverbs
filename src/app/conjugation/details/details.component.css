@@ -1,0 +1,18 @@
+section {
+  padding-bottom: 25px;
+}
+
+.conjugation-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+article {
+  flex: 1 0 200px;
+  margin: 15px;
+  text-align: left;
+}
+
+h3 {
+  border-bottom: 1px solid #dadada;
+}

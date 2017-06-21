@@ -1,5 +1,214 @@
-<p>
-  conjugation details <i>{{ verb }}</i>
-</p>
+<p *ngIf="noConjugationsFound">No conjugations found of <i>{{ verb }}</i></p>
+
+<section>
+  <h2 id="indicativo">Indicativo</h2>
+  <div class="conjugation-grid">
+    <article>
+      <h3>Presente</h3>
+      <ul>
+        <li>io mangio</li>
+        <li>tu mangi</li>
+        <li>lui/lei mangia</li>
+        <li>noi mangiamo</li>
+        <li>voi mangiate</li>
+        <li>loro mangiano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Passato Prossimo</h3>
+      <ul>
+        <li>io ho mangiato</li>
+        <li>tu hai mangiato</li>
+        <li>lui/lei ha mangiato</li>
+        <li>noi abbiamo mangiato</li>
+        <li>voi avete mangiato</li>
+        <li>loro hanno mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Imperfetto</h3>
+      <ul>
+        <li>io mangiavo</li>
+        <li>tu mangiavi</li>
+        <li>lui/lei mangiava</li>
+        <li>noi mangiavamo</li>
+        <li>voi mangiavate</li>
+        <li>loro mangiavano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Trapassato Prossimo</h3>
+      <ul>
+        <li>io avevo mangiato</li>
+        <li>tu avevi mangiato</li>
+        <li>lui/lei aveva mangiato</li>
+        <li>noi avevamo mangiato</li>
+        <li>voi avevate mangiato</li>
+        <li>loro avevano mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Passato Remoto</h3>
+      <ul>
+        <li>io mangiai</li>
+        <li>tu mangiasti</li>
+        <li>lui/lei mangiò</li>
+        <li>noi mangiammo</li>
+        <li>voi mangiaste</li>
+        <li>loro mangiarono</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Trapassato Remoto</h3>
+      <ul>
+        <li>io ebbi mangiato</li>
+        <li>tu avesti mangiato</li>
+        <li>lui/lei ebbe mangiato</li>
+        <li>noi avemmo mangiato</li>
+        <li>voi aveste mangiato</li>
+        <li>loro ebbero mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Futuro Semplice</h3>
+      <ul>
+        <li>io mangio</li>
+        <li>tu mangi</li>
+        <li>lui/lei mangia</li>
+        <li>noi mangiamo</li>
+        <li>voi mangiate</li>
+        <li>loro mangiano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Futuro Anteriore</h3>
+      <ul>
+        <li>io ho mangiato</li>
+        <li>tu hai mangiato</li>
+        <li>lui/lei ha mangiato</li>
+        <li>noi abbiamo mangiato</li>
+        <li>voi avete mangiato</li>
+        <li>loro hanno mangiato</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2 id="congiuntivo">Congiuntivo</h2>
+  <div class="conjugation-grid">
+    <article>
+      <h3>Presente</h3>
+      <ul>
+        <li>io mangio</li>
+        <li>tu mangi</li>
+        <li>lui/lei mangia</li>
+        <li>noi mangiamo</li>
+        <li>voi mangiate</li>
+        <li>loro mangiano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Passato</h3>
+      <ul>
+        <li>io ho mangiato</li>
+        <li>tu hai mangiato</li>
+        <li>lui/lei ha mangiato</li>
+        <li>noi abbiamo mangiato</li>
+        <li>voi avete mangiato</li>
+        <li>loro hanno mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Imperfetto</h3>
+      <ul>
+        <li>io mangiavo</li>
+        <li>tu mangiavi</li>
+        <li>lui/lei mangiava</li>
+        <li>noi mangiavamo</li>
+        <li>voi mangiavate</li>
+        <li>loro mangiavano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Trapassato</h3>
+      <ul>
+        <li>io avevo mangiato</li>
+        <li>tu avevi mangiato</li>
+        <li>lui/lei aveva mangiato</li>
+        <li>noi avevamo mangiato</li>
+        <li>voi avevate mangiato</li>
+        <li>loro avevano mangiato</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2 id="condizionale">Condizionale</h2>
+  <div class="conjugation-grid">
+    <article>
+      <h3>Presente</h3>
+      <ul>
+        <li>io mangerei</li>
+        <li>tu mangeresti</li>
+        <li>lui/lei mangia</li>
+        <li>noi mangiamo</li>
+        <li>voi mangiate</li>
+        <li>loro mangiano</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Passato</h3>
+      <ul>
+        <li>io avrei mangiato</li>
+        <li>tu avresti mangiato</li>
+        <li>lui/lei avrebbe mangiato</li>
+        <li>noi avremmo mangiato</li>
+        <li>voi avreste mangiato</li>
+        <li>loro avrebbero mangiato</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2 id="other">Other</h2>
+  <div class="conjugation-grid">
+    <article>
+      <h3>Imperativo</h3>
+      <ul>
+        <li>tu mangia</li>
+        <li>lui/lei mangi</li>
+        <li>noi mangiamo</li>
+        <li>voi mangiate</li>
+        <li>loro mangino</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Participio Presente</h3>
+      <ul>
+        <li>mangiante</li>
+        <li>tu avresti mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Participio Passato</h3>
+      <ul>
+        <li>mangiato</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Gerundio</h3>
+      <ul>
+        <li>mangiando</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
 
 <pre style="text-align: left"> {{conjugations | json}} </pre>

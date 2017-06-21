@@ -13,6 +13,7 @@ import 'rxjs/add/operator/switchMap';
 export class DetailsComponent implements OnInit {
   conjugations: Observable<any>;
   verb: string;
+  noConjugationsFound = false;
 
   constructor(private route: ActivatedRoute, private conjugationService: ConjugationService) { }
 
@@ -23,6 +24,7 @@ export class DetailsComponent implements OnInit {
         return this.conjugationService.conjugate(this.verb);
       })
       .subscribe(conjugations => {
+        this.noConjugationsFound = conjugations.$key === 'undefined';
         this.conjugations = conjugations;
       });
   }
