@@ -3,7 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { ConjugationService } from '../conjugation.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
   selector: 'app-conjugation-details',
@@ -11,22 +12,53 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  conjugations: Observable<any>;
-  verb: string;
+  conjugationGroups: Array<any>;
+  conjugationTypes: Array<any>;
+  conjugationPronouns: Array<any>;
+  conjugations: Array<any>;
   noConjugationsFound = false;
+  verb: string;
 
   constructor(private route: ActivatedRoute, private conjugationService: ConjugationService) { }
 
   ngOnInit() {
-    this.route.params
-      .switchMap((params: Params) => {
-        this.verb = params['verb'];
-        return this.conjugationService.conjugate(this.verb);
-      })
-      .subscribe(conjugations => {
-        this.noConjugationsFound = conjugations.$key === 'undefined';
-        this.conjugations = conjugations;
-      });
+    this.loadConjugations();
   }
+
+  loadConjugations() {
+    this.route.params.subscribe((params: Params) => {
+      this.verb = params['verb'];
+      this.noConjugationsFound = false;
+
+      const conjugationTypes$ = this.conjugationService.conjugationTypes();
+      const conjugationGroups$ = this.conjugationService.conjugationGroups();
+      const conjugationPronouns$ = this.conjugationService.conjugationPronouns();
+      const conjugations$ = this.conjugationService.conjugate(params['verb']);
+
+      Observable.forkJoin(conjugationGroups$.first(), conjugationTypes$.first(), conjugationPronouns$.first(), conjugations$.first())
+        .subscribe(data => {
+            this.conjugationGroups = data[0];
+            this.conjugationTypes = data[1];
+            this.conjugationPronouns = data[2];
+            this.conjugations = data[3];
+            this.noConjugationsFound = !data[3].length;
+          }
+        );
+    });
+  }
+
+  conjugationTypeByGroup(groupId) {
+    return this.conjugationTypes.filter(type => type.conjugation_group_id === groupId).sort((a, b) => a.sequence - b.sequence);
+  }
+
+  conjugationByType(typeId) {
+    return this.conjugations.filter(conjugation => conjugation.conjugation_type_id === typeId);
+  }
+
+  conjugationPronoun(pronounId) {
+    const conjugationPronoun = this.conjugationPronouns.find(pronoun => pronoun._id === pronounId);
+    return conjugationPronoun ? conjugationPronoun.pronoun : '';
+  }
+
 
 }

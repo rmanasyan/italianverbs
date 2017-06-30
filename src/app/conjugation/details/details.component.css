@@ -16,3 +16,7 @@ article {
 h3 {
   border-bottom: 1px solid #dadada;
 }
+
+li span {
+  opacity: 0.6;
+}

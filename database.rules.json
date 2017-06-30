@@ -2,10 +2,15 @@
   "rules": {
     ".read": "true",
     ".write": "auth != null",
-    "verbs": {
+    "verb": {
       ".indexOn": [
         "italian",
         "english"
+      ]
+    },
+    "conjugation": {
+      ".indexOn": [
+        "verbid"
       ]
     }
   }
