@@ -3,6 +3,10 @@
   margin-bottom: 40px;
 }
 
+p {
+  font-size: 22px;
+}
+
 form {
   position: relative;
   margin: 0 auto;
@@ -12,18 +16,14 @@ form {
 input[type=text] {
   width: 100%;
   padding: 7px 50px 7px 58px;
-  border: 1px solid #dadada;
+  border: 1px solid #dedede;
   border-radius: 4px;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-  font-size: 27px;
-  font-weight: 200;
+  font-size: 22px;
   line-height: 35px;
-  color: #333;
 }
 
 input[type=text]:focus {
-  box-shadow: 0 0 10px #dadada;
+  border-color: #bbb;
 }
 
 button {
@@ -35,15 +35,17 @@ button {
 }
 
 button[type=submit] {
-  top: 17px;
+  top: 16px;
   left: 18px;
   background: url(assets/search-icon.svg) no-repeat;
-  background-size: 20px 20px;
+  background-size: 100% 100%;
 }
 
 button[type=reset] {
-  top: 17px;
+  top: 18px;
   right: 18px;
   background: url(assets/close-button.svg) no-repeat;
-  background-size: 20px 20px;
+  background-size: 100% 100%;
+  width: 16px;
+  height: 16px;
 }
