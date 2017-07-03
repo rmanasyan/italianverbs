@@ -83,6 +83,10 @@ footer {
   padding: 60px 0;
 }
 
+strong {
+  font-weight: 500;
+}
+
 a.contact {
   font-size: 11px;
 }

@@ -1,4 +1,4 @@
-<p *ngIf="noConjugationsFound; else conjugations">No conjugations found of <i>{{ verb }}</i></p>
+<p *ngIf="noConjugationsFound; else conjugations">No conjugations found of <strong>{{ verb }}</strong></p>
 
 <ng-template #conjugations>
   <section *ngFor="let conjugationGroup of conjugationGroups">

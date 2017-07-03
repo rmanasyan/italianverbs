@@ -1,14 +1,15 @@
 ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 li {
-  flex: 1 0 140px;
+  /*flex: 0 0 130px;*/
   margin: 5px;
   text-align: left;
 }
 
-.first-in-group {
+.first-in-group a {
   font-weight: 500;
 }
