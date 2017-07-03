@@ -1,3 +1,6 @@
-<p>
-  Random verb of the moment: <a routerLink="avere">avere</a>
-</p>
+<h3>Or find all available verbs below*</h3>
+<ul>
+  <li *ngFor="let verb of verbs | async" [ngClass]="getCssClass(verb)">
+    <a title="{{ verb['english'] }}" routerLink="{{ verb['italian'] }}">{{ verb['italian'] }}</a>
+  </li>
+</ul>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
@@ -50,4 +50,11 @@ export class ConjugationService {
     })
   }
 
+  listVerbs(): FirebaseListObservable<any> {
+    return this.db.list('/verb', {
+      query: {
+        orderByChild: 'italian'
+      }
+    });
+  }
 }

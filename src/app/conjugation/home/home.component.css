@@ -1,0 +1,14 @@
+ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  flex: 1 0 140px;
+  margin: 5px;
+  text-align: left;
+}
+
+.first-in-group {
+  font-weight: 500;
+}
