@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ConjugationService } from '../conjugation.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 
 @Component({
@@ -17,7 +18,8 @@ export class DetailsComponent implements OnInit {
   conjugationPronouns: Array<any>;
   conjugations: Array<any>;
   noConjugationsFound = false;
-  verb: string;
+  verb: {'_id': number, 'english': string, 'italian': string};
+  verbQuery: string;
 
   constructor(private route: ActivatedRoute, private conjugationService: ConjugationService) { }
 
@@ -27,13 +29,18 @@ export class DetailsComponent implements OnInit {
 
   loadConjugations() {
     this.route.params.subscribe((params: Params) => {
-      this.verb = params['verb'];
+      this.verbQuery = params['verb'];
       this.noConjugationsFound = false;
+      this.conjugationGroups = [];
 
       const conjugationTypes$ = this.conjugationService.conjugationTypes();
       const conjugationGroups$ = this.conjugationService.conjugationGroups();
       const conjugationPronouns$ = this.conjugationService.conjugationPronouns();
-      const conjugations$ = this.conjugationService.conjugate(params['verb']);
+      const conjugations$ = this.conjugationService.conjugate(this.verbQuery);
+
+      this.conjugationService.verb(this.verbQuery)
+        .map(verbs => verbs[0])
+        .subscribe(verb => this.verb = verb);
 
       Observable.forkJoin(conjugationGroups$.first(), conjugationTypes$.first(), conjugationPronouns$.first(), conjugations$.first())
         .subscribe(data => {

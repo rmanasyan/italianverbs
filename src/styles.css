@@ -79,6 +79,10 @@ button {
   cursor: pointer;
 }
 
+input, button {
+  -webkit-appearance: none;
+}
+
 footer {
   padding: 60px 0;
 }

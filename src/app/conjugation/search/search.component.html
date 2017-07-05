@@ -2,9 +2,21 @@
   (ie: <a routerLink="/mangiare">🍕mangiare</a>, <a routerLink="/dormire">😴dormire</a>, <a routerLink="/amare">💕amare</a>)
 </p>
 
-<form (ngSubmit)="search(searchTerm); searchForm.reset()" #searchForm="ngForm">
-  <input type="text" autocomplete="off" placeholder="Search verb"
-         required name="verb" [(ngModel)]="searchTerm">
+<form (ngSubmit)="conjugate(searchTerm); searchForm.reset()" (reset)="resetSuggestions()" #searchForm="ngForm">
+  <input type="text" required
+         autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+         name="verb"
+         [(ngModel)]="searchTerm"
+         (keyup)="search(searchTerm)"
+         placeholder="Search verb">
   <button type="submit" [disabled]="!searchForm.form.valid">Search</button>
   <button type="reset" [hidden]="!searchTerm">Reset</button>
+
+  <ul *ngIf="verbs.length" class="search-suggestions">
+    <li *ngFor="let verb of verbs">
+      <a (click)="resetSuggestions(); searchForm.reset()" routerLink="/{{ verb['italian'] }}">
+        {{ verb['italian'] }} <span> - {{ verb['english'] }}</span>
+      </a>
+    </li>
+  </ul>
 </form>

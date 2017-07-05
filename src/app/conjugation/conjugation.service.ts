@@ -10,12 +10,7 @@ export class ConjugationService {
   constructor(private db: AngularFireDatabase) { }
 
   conjugate(verb: string): Observable<any> {
-    return this.db.list('/verb', {
-      query: {
-        orderByChild: 'italian',
-        equalTo: verb
-      }
-    }).switchMap(verbData => {
+    return this.verb(verb).switchMap(verbData => {
       const verbId = verbData[0] ? verbData[0]._id : -1;
       return this.db.list('/conjugation', {
         query: {
@@ -54,6 +49,25 @@ export class ConjugationService {
     return this.db.list('/verb', {
       query: {
         orderByChild: 'italian'
+      }
+    });
+  }
+
+  search(term: string): FirebaseListObservable<any> {
+    return this.db.list('/verb', {
+      query: {
+        orderByChild: 'italian',
+        startAt: term,
+        endAt: term + '\uf8ff'
+      }
+    });
+  }
+
+  verb(verb: string): FirebaseListObservable<any> {
+    return this.db.list('/verb', {
+      query: {
+        orderByChild: 'italian',
+        equalTo: verb
       }
     });
   }
