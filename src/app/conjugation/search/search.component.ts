@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -27,6 +27,8 @@ enum Key {
 })
 export class SearchComponent implements OnInit {
   @ViewChild('searchForm') searchForm: NgForm;
+  @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChildren('verbLink') verbLinks: QueryList<any>;
 
   searchTerm: string;
   verbs: Array<Verb> = [];
@@ -47,6 +49,7 @@ export class SearchComponent implements OnInit {
         if (!verbs.length) {
           this.resetSuggestions();
         } else {
+          this.suggestionsIndex = -1;
           this.suggestionsAvailable = true;
         }
       });
@@ -94,6 +97,7 @@ export class SearchComponent implements OnInit {
   resetSuggestions() {
     this.suggestionsIndex = -1;
     this.suggestionsAvailable = false;
+    this.searchInput.nativeElement.focus();
   }
 
   searchVerbs(term: string) {
@@ -108,14 +112,29 @@ export class SearchComponent implements OnInit {
   }
 
   suggestionsIndexUp() {
-    if (this.suggestionsIndex > 0) {
+    if (this.suggestionsIndex > -1) {
       this.suggestionsIndex--;
+      this.focusSuggestionsLink(this.suggestionsIndex);
     }
   }
 
   suggestionsIndexDown() {
     if (this.suggestionsIndex < this.verbs.length - 1) {
       this.suggestionsIndex++;
+      this.focusSuggestionsLink(this.suggestionsIndex);
     }
+  }
+
+  focusSuggestionsLink(index) {
+    if (index === -1) {
+      this.searchInput.nativeElement.focus();
+      return;
+    }
+
+    this.verbLinks.forEach((verbLink, i) => {
+      if (i === index) {
+        verbLink.nativeElement.focus();
+      }
+    });
   }
 }
