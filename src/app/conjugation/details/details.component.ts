@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { ConjugationService } from '../conjugation.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
+
+import { ConjugationService } from '../conjugation.service';
+import { Verb } from '../verb';
 
 @Component({
   selector: 'app-conjugation-details',
@@ -18,7 +20,7 @@ export class DetailsComponent implements OnInit {
   conjugationPronouns: Array<any>;
   conjugations: Array<any>;
   noConjugationsFound = false;
-  verb: {'_id': number, 'english': string, 'italian': string};
+  verb: Verb;
   verbQuery: string;
 
   constructor(private route: ActivatedRoute, private conjugationService: ConjugationService) { }

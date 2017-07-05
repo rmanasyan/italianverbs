@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
     this.verbs = this.conjugationService.listVerbs();
   }
 
-  getCssClass(verb) {
+  isFirstInGroup(verb) {
     const firstChar = verb.italian.charAt(0);
-    const className = this.verbFirstLetter !== firstChar ? 'first-in-group' : '';
+    const isFirst = this.verbFirstLetter !== firstChar;
     this.verbFirstLetter = firstChar;
 
-    return className;
+    return isFirst;
   }
 
 }

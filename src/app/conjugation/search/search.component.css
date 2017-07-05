@@ -73,7 +73,6 @@ button[type=reset] {
   color: #999;
 }
 
-.search-suggestions a:hover, .search-suggestions a.selected {
-  /*background-color: #f2f2f2;*/
-  /*font-weight: 500;*/
+.search-suggestions .selected a {
+  text-decoration: underline;
 }
