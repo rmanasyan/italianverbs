@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
@@ -30,8 +30,8 @@ export class DetailsComponent implements OnInit {
   }
 
   loadConjugations() {
-    this.route.params.subscribe((params: Params) => {
-      this.verbQuery = params['verb'];
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.verbQuery = params.get('verb');
       this.noConjugationsFound = false;
       this.conjugationGroups = [];
 
