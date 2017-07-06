@@ -13,8 +13,6 @@ import { ConjugationService } from '../conjugation.service';
 import { Verb } from '../verb';
 
 enum Key {
-  Tab = 9,
-  Enter = 13,
   Escape = 27,
   ArrowUp = 38,
   ArrowDown = 40
@@ -78,20 +76,11 @@ export class SearchComponent implements OnInit {
         event.preventDefault();
         this.suggestionsIndexUp();
         break;
-      case Key.Enter:
-      case Key.Tab:
-        if (this.suggestionsIndex !== -1) {
-          event.preventDefault();
-          this.suggestionsConjugate();
-          this.resetSuggestions();
-        }
-        break;
       case Key.Escape:
         event.preventDefault();
         this.resetSuggestions();
         break;
     }
-
   }
 
   resetSuggestions() {
@@ -102,13 +91,6 @@ export class SearchComponent implements OnInit {
 
   searchVerbs(term: string) {
     this.searchTerms$.next(term);
-  }
-
-  suggestionsConjugate() {
-    if (this.verbs.length && this.suggestionsIndex > -1) {
-      this.conjugate(this.verbs[this.suggestionsIndex].italian);
-      this.searchForm.reset();
-    }
   }
 
   suggestionsIndexUp() {

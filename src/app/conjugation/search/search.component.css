@@ -72,7 +72,3 @@ button[type=reset] {
 .search-suggestions span {
   color: #999;
 }
-
-.search-suggestions .selected a {
-  text-decoration: underline;
-}
