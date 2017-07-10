@@ -9,7 +9,6 @@ import { DetailsComponent } from './details/details.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   imports: [
@@ -18,7 +17,7 @@ import { SpinnerService } from './spinner/spinner.service';
     ConjugationRoutingModule
   ],
   declarations: [ ConjugationComponent, DetailsComponent, HomeComponent, SearchComponent, SpinnerComponent ],
-  providers: [ ConjugationService, SpinnerService ],
+  providers: [ ConjugationService ],
   exports: [ ConjugationComponent ]
 })
 export class ConjugationModule { }
