@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 
 import { ConjugationService } from '../conjugation.service';
+import { SpinnerService } from '../spinner/spinner.service';
 import { Verb } from '../verb';
 
 @Component({
@@ -23,14 +26,14 @@ export class DetailsComponent implements OnInit {
   verb: Verb;
   verbQuery: string;
 
-  constructor(private route: ActivatedRoute, private conjugationService: ConjugationService) { }
+  constructor(private route: ActivatedRoute, private conjugationService: ConjugationService, private spinnerService: SpinnerService) { }
 
   ngOnInit() {
     this.loadConjugations();
   }
 
   loadConjugations() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
+    this.route.paramMap.do(() => this.spinnerService.present()).subscribe((params: ParamMap) => {
       this.verbQuery = params.get('verb');
       this.noConjugationsFound = false;
       this.conjugationGroups = [];
@@ -45,6 +48,7 @@ export class DetailsComponent implements OnInit {
         .subscribe(verb => this.verb = verb);
 
       Observable.forkJoin(conjugationGroups$.first(), conjugationTypes$.first(), conjugationPronouns$.first(), conjugations$.first())
+        .finally(() => this.spinnerService.dismiss())
         .subscribe(data => {
             this.conjugationGroups = data[0];
             this.conjugationTypes = data[1];

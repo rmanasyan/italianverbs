@@ -1,6 +1,9 @@
 <h3>Or find all available verbs below*</h3>
+
+<app-spinner></app-spinner>
+
 <ul>
-  <li *ngFor="let verb of verbs | async; last as isLast" [ngClass]="{'first-in-group': isFirstInGroup(verb)}">
+  <li *ngFor="let verb of verbs; last as isLast" [ngClass]="{'first-in-group': isFirstInGroup(verb)}">
     <a title="{{ verb['english'] }}" routerLink="/{{ verb['italian'] }}">{{ verb['italian'] }}</a><span *ngIf="!isLast">, </span>
   </li>
 </ul>

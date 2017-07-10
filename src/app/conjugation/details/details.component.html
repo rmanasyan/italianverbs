@@ -1,7 +1,9 @@
 <p *ngIf="noConjugationsFound; else conjugations">No conjugations found of <strong>{{ verbQuery }}</strong></p>
 
 <ng-template #conjugations>
-  <p><strong>{{ verb?.italian }}</strong> <span> - {{ verb?.english }}</span></p>
+  <p *ngIf="verb?.italian"><strong>{{ verb?.italian }}</strong> <span> - {{ verb?.english }}</span></p>
+
+  <app-spinner></app-spinner>
 
   <section *ngFor="let conjugationGroup of conjugationGroups">
     <h2 id="{{ conjugationGroup['group'] }}">{{ conjugationGroup['description'] }}</h2>

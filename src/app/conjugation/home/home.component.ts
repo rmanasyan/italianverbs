@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FirebaseListObservable } from 'angularfire2/database';
 import { ConjugationService } from '../conjugation.service';
+import { SpinnerService } from '../spinner/spinner.service';
+
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-conjugation-home',
@@ -9,13 +12,19 @@ import { ConjugationService } from '../conjugation.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  verbs: FirebaseListObservable<any>;
+  verbs: Array<any>;
   verbFirstLetter = '';
 
-  constructor(private conjugationService: ConjugationService) { }
+  constructor(private conjugationService: ConjugationService, private spinnerService: SpinnerService) { }
 
   ngOnInit() {
-    this.verbs = this.conjugationService.listVerbs();
+    this.spinnerService.present();
+
+    this.conjugationService.listVerbs()
+      .subscribe(verbs => {
+        this.verbs = verbs;
+        this.spinnerService.dismiss();
+      });
   }
 
   isFirstInGroup(verb) {

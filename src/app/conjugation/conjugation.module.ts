@@ -8,6 +8,8 @@ import { ConjugationService } from './conjugation.service';
 import { DetailsComponent } from './details/details.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   imports: [
@@ -15,8 +17,8 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     ConjugationRoutingModule
   ],
-  declarations: [ ConjugationComponent, DetailsComponent, HomeComponent, SearchComponent ],
-  providers: [ ConjugationService ],
+  declarations: [ ConjugationComponent, DetailsComponent, HomeComponent, SearchComponent, SpinnerComponent ],
+  providers: [ ConjugationService, SpinnerService ],
   exports: [ ConjugationComponent ]
 })
 export class ConjugationModule { }
