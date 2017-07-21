@@ -1,18 +1,18 @@
 <p *ngIf="noConjugationsFound; else conjugations">No conjugations found of <strong>{{ verbQuery }}</strong></p>
 
 <ng-template #conjugations>
-  <p *ngIf="verb?.italian"><strong>{{ verb?.italian }}</strong> <span> - {{ verb?.english }}</span></p>
+  <p *ngIf="verb | async as verb"><strong>{{ verb.italian }}</strong> <span> - {{ verb.english }}</span></p>
 
   <app-spinner *ngIf="loading"></app-spinner>
 
   <section *ngFor="let conjugationGroup of conjugationGroups">
-    <h2 id="{{ conjugationGroup['group'] }}">{{ conjugationGroup['description'] }}</h2>
+    <h2 id="{{ conjugationGroup.group }}">{{ conjugationGroup.description }}</h2>
     <div class="conjugation-grid">
-      <article *ngFor="let conjugationType of conjugationTypeByGroup(conjugationGroup['_id'])">
-        <h3>{{ conjugationType['description'] }}</h3>
+      <article *ngFor="let conjugationType of conjugationTypeByGroup(conjugationGroup._id)">
+        <h3>{{ conjugationType.description }}</h3>
         <ul>
-          <li *ngFor="let conjugation of conjugationByType(conjugationType['_id'])">
-            <span>{{ conjugationPronoun(conjugation['pronounid']) }}</span> {{ conjugation['verb'] }}
+          <li *ngFor="let conjugation of conjugationByType(conjugationType._id)">
+            <span>{{ conjugationPronoun(conjugation.pronounid) }}</span> {{ conjugation.verb }}
           </li>
         </ul>
       </article>

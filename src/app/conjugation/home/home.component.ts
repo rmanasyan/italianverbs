@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FirebaseListObservable } from 'angularfire2/database';
 import { ConjugationService } from '../conjugation.service';
+import { Verb } from '../conjugation.interface';
 
 @Component({
   selector: 'app-conjugation-home',
@@ -9,7 +10,7 @@ import { ConjugationService } from '../conjugation.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  verbs: FirebaseListObservable<any>;
+  verbs: FirebaseListObservable<Verb[]>;
   verbFirstLetter = '';
   loading = true;
 

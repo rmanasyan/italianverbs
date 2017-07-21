@@ -10,7 +10,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
 import { ConjugationService } from '../conjugation.service';
-import { Verb } from '../verb';
+import { Verb } from '../conjugation.interface';
 
 enum Key {
   Escape = 27,
