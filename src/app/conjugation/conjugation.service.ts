@@ -1,74 +1,62 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
+
+import { Conjugation, ConjugationGroup, ConjugationType, Pronoun, Verb } from './conjugation.interface';
 
 @Injectable()
 export class ConjugationService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  conjugate(verb: string): Observable<any> {
-    return this.verb(verb).switchMap(verbData => {
-      const verbId = verbData[0] ? verbData[0]._id : -1;
-      return this.db.list('/conjugation', {
-        query: {
-          orderByChild: 'verbid',
-          equalTo: verbId
-        }
-      });
-    });
+  conjugate(verb: string): Observable<Conjugation[]> {
+    return this.verb(verb)
+      .pipe(
+        switchMap(verbData => {
+          const verbId = verbData[0] ? verbData[0]._id : -1;
+
+          return this.db.list<Conjugation>('/conjugation', ref =>
+            ref.orderByChild('verbid').equalTo(verbId)
+          ).valueChanges();
+        })
+      );
   }
 
-  conjugationTypes(): Observable<any> {
-    return this.db.list('/conjugation_type', {
-      query: {
-        orderByChild: '_id'
-      }
-    })
+  conjugationTypes(): Observable<ConjugationType[]> {
+    return this.db.list<ConjugationType>('/conjugation_type', ref =>
+      ref.orderByChild('_id')
+    ).valueChanges();
   }
 
-  conjugationGroups(): Observable<any> {
-    return this.db.list('/conjugation_group', {
-      query: {
-        orderByChild: '_id'
-      }
-    })
+  conjugationGroups(): Observable<ConjugationGroup[]> {
+    return this.db.list<ConjugationGroup>('/conjugation_group', ref =>
+      ref.orderByChild('_id')
+    ).valueChanges();
   }
 
-  conjugationPronouns(): Observable<any> {
-    return this.db.list('/pronoun', {
-      query: {
-        orderByChild: '_id'
-      }
-    })
+  conjugationPronouns(): Observable<Pronoun[]> {
+    return this.db.list<Pronoun>('/pronoun', ref =>
+      ref.orderByChild('_id')
+    ).valueChanges();
   }
 
-  listVerbs(): FirebaseListObservable<any> {
-    return this.db.list('/verb', {
-      query: {
-        orderByChild: 'italian'
-      }
-    });
+  listVerbs(): Observable<Verb[]> {
+    return this.db.list<Verb>('/verb', ref =>
+      ref.orderByChild('italian')
+    ).valueChanges();
   }
 
-  search(term: string): FirebaseListObservable<any> {
-    return this.db.list('/verb', {
-      query: {
-        orderByChild: 'italian',
-        startAt: term,
-        endAt: term + '\uf8ff'
-      }
-    });
+  search(term: string): Observable<Verb[]> {
+    return this.db.list<Verb>('/verb', ref =>
+      ref.orderByChild('italian').startAt(term).endAt(term + '\uf8ff')
+    ).valueChanges();
   }
 
-  verb(verb: string): FirebaseListObservable<any> {
-    return this.db.list('/verb', {
-      query: {
-        orderByChild: 'italian',
-        equalTo: verb
-      }
-    });
+  verb(verb: string): Observable<Verb[]> {
+    return this.db.list<Verb>('/verb', ref =>
+      ref.orderByChild('italian').equalTo(verb)
+    ).valueChanges();
   }
 }

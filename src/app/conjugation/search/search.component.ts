@@ -2,12 +2,9 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
+import { of } from 'rxjs/observable/of';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { ConjugationService } from '../conjugation.service';
 import { Verb } from '../conjugation.interface';
@@ -38,9 +35,11 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchTerms$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .switchMap((term: string) => term ? this.conjugationService.search(term) : Observable.of([]))
+      .pipe(
+         debounceTime(300),
+         distinctUntilChanged(),
+         switchMap((term: string) => term ? this.conjugationService.search(term) : of([]))
+      )
       .subscribe(verbs => {
         this.verbs = verbs;
 

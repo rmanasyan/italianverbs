@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { first, map } from 'rxjs/operators';
 
 import { ConjugationService } from '../conjugation.service';
 import { Conjugation, ConjugationGroup, ConjugationType, Pronoun, Verb } from '../conjugation.interface';
@@ -41,18 +40,23 @@ export class DetailsComponent implements OnInit {
       const conjugationPronouns$ = this.conjugationService.conjugationPronouns();
       const conjugations$ = this.conjugationService.conjugate(this.verbQuery);
 
-      this.verb = this.conjugationService.verb(this.verbQuery).map(verbs => verbs[0]);
+      this.verb = this.conjugationService.verb(this.verbQuery).pipe(map(verbs => verbs[0]));
 
-      Observable.forkJoin(conjugationGroups$.first(), conjugationTypes$.first(), conjugationPronouns$.first(), conjugations$.first())
-        .subscribe(([conjugationGroups, conjugationTypes, conjugationPronouns, conjugations]) => {
-            this.conjugationGroups = conjugationGroups;
-            this.conjugationTypes = conjugationTypes;
-            this.conjugationPronouns = conjugationPronouns;
-            this.conjugations = conjugations;
-            this.noConjugationsFound = !conjugations.length;
-            this.loading = false;
-          }
-        );
+      forkJoin(
+        conjugationGroups$.pipe(first()),
+        conjugationTypes$.pipe(first()),
+        conjugationPronouns$.pipe(first()),
+        conjugations$.pipe(first())
+      )
+      .subscribe(([conjugationGroups, conjugationTypes, conjugationPronouns, conjugations]) => {
+          this.conjugationGroups = conjugationGroups;
+          this.conjugationTypes = conjugationTypes;
+          this.conjugationPronouns = conjugationPronouns;
+          this.conjugations = conjugations;
+          this.noConjugationsFound = !conjugations.length;
+          this.loading = false;
+        }
+      );
     });
   }
 
