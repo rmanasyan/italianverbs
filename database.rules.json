@@ -5,12 +5,14 @@
     "verb": {
       ".indexOn": [
         "italian",
-        "english"
+        "english",
+        "_id"
       ]
     },
     "conjugation": {
       ".indexOn": [
-        "verbid"
+        "verbid",
+        "verb"
       ]
     }
   }

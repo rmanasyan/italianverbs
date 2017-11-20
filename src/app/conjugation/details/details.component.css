@@ -20,3 +20,7 @@ article h3 {
 li span {
   color: #999;
 }
+
+.highlighted-search {
+  font-weight: 500;
+}

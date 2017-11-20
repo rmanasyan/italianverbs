@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 
 import { Conjugation, ConjugationGroup, ConjugationType, Pronoun, Verb } from './conjugation.interface';
 
@@ -12,13 +12,12 @@ export class ConjugationService {
   constructor(private db: AngularFireDatabase) { }
 
   conjugate(verb: string): Observable<Conjugation[]> {
-    return this.verb(verb)
+    return this.conjugatedVerb(verb)
       .pipe(
+        map(verbData => verbData[0]),
         switchMap(verbData => {
-          const verbId = verbData[0] ? verbData[0]._id : -1;
-
           return this.db.list<Conjugation>('/conjugation', ref =>
-            ref.orderByChild('verbid').equalTo(verbId)
+            ref.orderByChild('verbid').equalTo(verbData.verbid)
           ).valueChanges();
         })
       );
@@ -57,6 +56,18 @@ export class ConjugationService {
   verb(verb: string): Observable<Verb[]> {
     return this.db.list<Verb>('/verb', ref =>
       ref.orderByChild('italian').equalTo(verb)
+    ).valueChanges();
+  }
+
+  verbById(id): Observable<Verb[]> {
+    return this.db.list<Verb>('/verb', ref =>
+      ref.orderByChild('_id').equalTo(id)
+    ).valueChanges();
+  }
+
+  conjugatedVerb(verb: string): Observable<Conjugation[]> {
+    return this.db.list<Conjugation>('/conjugation', ref =>
+      ref.orderByChild('verb').equalTo(verb).limitToFirst(1)
     ).valueChanges();
   }
 }
