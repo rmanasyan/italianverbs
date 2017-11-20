@@ -16,8 +16,9 @@ export class ConjugationService {
       .pipe(
         map(verbData => verbData[0]),
         switchMap(verbData => {
+          const verbId = verbData ? verbData.verbid : -1;
           return this.db.list<Conjugation>('/conjugation', ref =>
-            ref.orderByChild('verbid').equalTo(verbData.verbid)
+            ref.orderByChild('verbid').equalTo(verbId)
           ).valueChanges();
         })
       );
@@ -69,5 +70,16 @@ export class ConjugationService {
     return this.db.list<Conjugation>('/conjugation', ref =>
       ref.orderByChild('verb').equalTo(verb).limitToFirst(1)
     ).valueChanges();
+  }
+
+  verbByConjugation(verb: string): Observable<Verb[]> {
+    return this.conjugatedVerb(verb)
+      .pipe(
+        map(verbData => verbData[0]),
+        switchMap(verbData => {
+          const verbId = verbData ? verbData.verbid : -1;
+          return this.verbById(verbId);
+        })
+    );
   }
 }

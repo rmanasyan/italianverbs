@@ -40,14 +40,7 @@ export class DetailsComponent implements OnInit {
       const conjugationPronouns$ = this.conjugationService.conjugationPronouns();
       const conjugations$ = this.conjugationService.conjugate(this.verbQuery);
 
-      this.verb = this.conjugationService.conjugatedVerb(this.verbQuery)
-        .pipe(
-          map(verbData => verbData[0]),
-          switchMap(verbData => {
-            return this.conjugationService.verbById(verbData.verbid);
-          }),
-          map(verbs => verbs[0])
-        );
+      this.verb = this.conjugationService.verbByConjugation(this.verbQuery).map(verbData => verbData[0]);
 
       forkJoin(
         conjugationGroups$.pipe(first()),
