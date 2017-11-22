@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import {map, switchMap} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Conjugation, ConjugationGroup, ConjugationType, Pronoun, Verb } from './conjugation.interface';
 

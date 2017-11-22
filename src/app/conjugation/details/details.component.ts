@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import {first, map, switchMap} from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { ConjugationService } from '../conjugation.service';
 import { Conjugation, ConjugationGroup, ConjugationType, Pronoun, Verb } from '../conjugation.interface';

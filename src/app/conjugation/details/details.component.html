@@ -1,7 +1,9 @@
 <p *ngIf="noConjugationsFound; else conjugations">No conjugations found of <strong>{{ verbQuery }}</strong></p>
 
 <ng-template #conjugations>
-  <p *ngIf="verb | async as verb"><strong>{{ verb.italian }}</strong> <span> - {{ verb.english }}</span></p>
+  <p *ngIf="verb | async as verb">
+    <strong>{{ verbQuery }} <em *ngIf="verbQuery != verb.italian">({{ verb.italian }})</em></strong> <span> - {{ verb.english }}</span>
+  </p>
 
   <app-spinner *ngIf="loading"></app-spinner>
 
