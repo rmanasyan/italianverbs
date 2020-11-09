@@ -1,18 +1,32 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "auth != null",
+    "conjugation": {
+      ".read": "true",
+      ".write": "false",
+      ".indexOn": [
+        "verbid",
+        "verb"
+      ]
+    },
+    "conjugation_group": {
+      ".read": "true",
+      ".write": "false"
+    },
+    "conjugation_type": {
+      ".read": "true",
+      ".write": "false"
+    },
+    "pronoun": {
+      ".read": "true",
+      ".write": "false"
+    },
     "verb": {
+      ".read": "true",
+      ".write": "false",
       ".indexOn": [
         "italian",
         "english",
         "_id"
-      ]
-    },
-    "conjugation": {
-      ".indexOn": [
-        "verbid",
-        "verb"
       ]
     }
   }
